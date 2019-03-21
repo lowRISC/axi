@@ -22,6 +22,8 @@ interface AXI_BUS #(
   parameter AXI_DATA_WIDTH = -1,
   parameter AXI_ID_WIDTH   = -1,
   parameter AXI_USER_WIDTH = -1
+)(
+  input logic clk_i
 );
 
   localparam AXI_STRB_WIDTH = AXI_DATA_WIDTH / 8;
