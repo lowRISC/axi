@@ -31,8 +31,8 @@ module axi_multicut #(
 )(
   input logic clk_i  ,
   input logic rst_ni ,
-  AXI_BUS.Slave  in     ,
-  AXI_BUS.Master out
+  AXI_BUS.in  in     ,
+  AXI_BUS.out out
 );
 
   // Check the invariants.
@@ -83,7 +83,7 @@ module axi_multicut #(
       .clk_i  ( clk_i        ),
       .rst_ni ( rst_ni       ),
       .in     ( in           ),
-      .out    ( s_cut[0].Master )
+      .out    ( s_cut[0].out )
     );
 
     for (genvar i = 1; i < NUM_CUTS-1; i++) begin
@@ -95,8 +95,8 @@ module axi_multicut #(
       ) i_middle (
         .clk_i  ( clk_i         ),
         .rst_ni ( rst_ni        ),
-        .in     ( s_cut[i-1].Slave ),
-        .out    ( s_cut[i].Master  )
+        .in     ( s_cut[i-1].in ),
+        .out    ( s_cut[i].out  )
       );
     end
 
@@ -108,7 +108,7 @@ module axi_multicut #(
     ) i_last (
       .clk_i  ( clk_i                ),
       .rst_ni ( rst_ni               ),
-      .in     ( s_cut[NUM_CUTS-2].Slave ),
+      .in     ( s_cut[NUM_CUTS-2].in ),
       .out    ( out                  )
     );
   end
